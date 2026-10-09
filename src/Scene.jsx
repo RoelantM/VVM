@@ -14,7 +14,7 @@ const upp = (camera, z, h) => (2 * Math.tan((camera.fov * Math.PI) / 360) * (cam
 const elCache = {}
 const getEl = (id) => {
   const c = elCache[id]
-  if (c && c.isConnected) return c
+  if (c && c.isConnected && (id === 'top' || c.id === id)) return c
   return (elCache[id] = id === 'top' ? document.querySelector('.hero') : document.getElementById(id))
 }
 
@@ -59,7 +59,8 @@ function Pinned({ anchor, dx = 0, dy = 0, z = 0, scale = 1, edge = 'center', fix
   const pop = useRef(0)
   useFrame(({ camera, size }, dt) => {
     const e = getEl(anchor); const g = ref.current
-    if (!e || !g) return
+    if (!g) return
+    if (!e || !e.isConnected) { g.visible = false; pop.current = 0; return } // geen anker op deze pagina
     const mobile = size.width < 700
     const r = e.getBoundingClientRect()
     const k = upp(camera, z, size.height)
@@ -87,6 +88,7 @@ const SPEC = {
   lid: { x: 0.92, z: -1, s: 0.5 },
   sponsors: { x: -0.92, z: -1, s: 0.5 },
   contact: { x: 0.55, z: -0.5, s: 0.9 },
+  page: { x: 0.92, z: -1, s: 0.5 },
 }
 
 function HeroBall() {
@@ -104,6 +106,7 @@ function HeroBall() {
       const w = Math.pow(Math.max(0, 1 - d * 1.3), 2) + 1e-4
       wsum += w; tx += w * sp.x; tz += w * sp.z; ts += w * sp.s
     }
+    if (wsum === 0) { tx = SPEC.page.x; tz = SPEC.page.z; ts = SPEC.page.s; wsum = 1 }
     tx /= wsum; tz /= wsum; ts /= wsum
     const k = upp(camera, tz, size.height)
     const wx = tx * (mobile ? 0.45 : 1) * (size.width / 2) * k + pointer.x * 0.15
@@ -310,7 +313,7 @@ export default function Scene() {
         <Pinned anchor="nieuws" dx={-0.48} z={-1.3} fixedY={GROUND} scale={0.9}><Cone /></Pinned>
         <Pinned anchor="wedstrijden" dx={0.82} z={-1.2} fixedY={GROUND}><Goal /></Pinned>
         <Pinned anchor="teams" dx={-0.95} z={-1} fixedY={GROUND}><CornerFlag /></Pinned>
-        <Pinned anchor="shop" dx={0.72} dy={120} edge="top" z={-0.5}><Shirt /></Pinned>
+        <Pinned anchor="shop" dx={0.72} dy={330} edge="top" z={-0.5} scale={0.85}><Shirt /></Pinned>
         <Pinned anchor="sponsors" dx={0.72} z={-1} scale={0.8}><Orbit /></Pinned>
         <Pinned anchor="contact" dx={-0.9} z={-1} fixedY={GROUND}><CornerFlag /></Pinned>
       </Canvas>

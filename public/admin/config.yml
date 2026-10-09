@@ -25,7 +25,8 @@ collections:
       - { name: date, label: Datum, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD" }
       - { name: title, label: Titel, widget: string }
       - { name: text, label: Korte tekst, widget: text }
-      - { name: url, label: Link naar volledig bericht (optioneel), widget: string, required: false }
+      - { name: image, label: Afbeelding (optioneel), widget: image, required: false }
+      - { name: body, label: Volledig bericht, widget: markdown, required: false }
 
   - name: pagina
     label: Pagina-instellingen
@@ -36,13 +37,34 @@ collections:
         format: json
         fields:
           - name: items
-            label: Menu-items (sleep om de volgorde te wijzigen)
+            label: Hoofdmenu (sleep om de volgorde te wijzigen)
             widget: list
             summary: "{{fields.label}}"
             fields:
               - { name: label, label: Tekst, widget: string }
-              - { name: href, label: "Doel (#sectie of volledige link)", widget: string }
+              - { name: href, label: "Doel (leeg = alleen uitklapmenu; #/pagina of volledige link)", widget: string, required: false }
               - { name: visible, label: Zichtbaar, widget: boolean, default: true }
+              - name: children
+                label: Uitklapmenu (submenu)
+                widget: list
+                required: false
+                summary: "{{fields.label}}"
+                fields:
+                  - { name: label, label: Tekst, widget: string }
+                  - { name: href, label: "Doel (#/pagina of volledige link)", widget: string }
+          - name: utility
+            label: Bovenbalk (klein, rechtsboven)
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: Tekst, widget: string }
+              - { name: href, label: Doel, widget: string }
+          - name: cta
+            label: Knop (Lid worden)
+            widget: object
+            fields:
+              - { name: label, label: Tekst, widget: string }
+              - { name: href, label: Doel, widget: string }
       - name: settings
         label: Clubgegevens
         file: content/settings.json
@@ -120,13 +142,22 @@ collections:
               - { name: name, label: Naam, widget: string }
               - { name: for, label: Voor wie, widget: string }
       - name: membership
-        label: Lidmaatschap en contributie
+        label: Lid worden en contributie
         file: content/membership.json
         format: json
         fields:
           - { name: intro, label: Inleiding, widget: text }
+          - name: steps
+            label: Stappen (aanmelden, proeftraining, opzeggen)
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: Titel, widget: string }
+              - { name: text, label: Tekst, widget: text }
+          - { name: tiersTitle, label: Titel lidmaatschapsvormen, widget: string }
+          - { name: tiersIntro, label: Uitleg lidmaatschapsvormen, widget: text }
           - name: tiers
-            label: Lidmaatschapsvormen (goud/zilver/brons)
+            label: Lidmaatschapsvormen
             widget: list
             summary: "{{fields.name}}"
             fields:
@@ -137,9 +168,12 @@ collections:
           - name: fees
             label: Contributie
             widget: list
+            summary: "{{fields.label}}"
             fields:
               - { name: label, label: Lidsoort, widget: string }
-              - { name: price, label: Bedrag, widget: string }
+              - { name: half, label: Per halfjaar, widget: string }
+              - { name: price, label: Per jaar, widget: string }
+          - { name: feeFootnote, label: Voetnoot, widget: string, required: false }
       - name: contacts
         label: Contactpersonen
         file: content/contacts.json
@@ -165,6 +199,20 @@ collections:
               - { name: level, label: Niveau, widget: select, options: [Hoofdsponsor, Clubsponsor, Jeugdsponsor, Overig], default: Clubsponsor }
               - { name: logo, label: Logo, widget: image, required: false }
               - { name: url, label: Website, widget: string, required: false }
+
+  - name: pages
+    label: Pagina's (Club, Leden, Toernooien, Sponsoring)
+    label_singular: Pagina
+    folder: content/pages
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      - { name: title, label: Titel, widget: string }
+      - { name: group, label: Groep, widget: select, options: [club, leden, overig], default: club }
+      - { name: body, label: Tekst (koppen, lijsten, links, afbeeldingen), widget: markdown }
 
   - name: shop
     label: Webshop

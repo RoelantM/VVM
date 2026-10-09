@@ -1,39 +1,115 @@
 {
   "items": [
     {
-      "label": "Nieuws",
-      "href": "#nieuws",
-      "visible": true
+      "label": "Teams",
+      "href": "#/teams",
+      "visible": true,
+      "children": []
+    },
+    {
+      "label": "Club",
+      "href": "",
+      "visible": true,
+      "children": [
+        {
+          "label": "Vereniging",
+          "href": "#/club/vereniging"
+        },
+        {
+          "label": "Jeugd",
+          "href": "#/club/jeugd"
+        },
+        {
+          "label": "Vrijwilligers",
+          "href": "#/club/vrijwilligers"
+        },
+        {
+          "label": "Medewerkers",
+          "href": "#/club/medewerkers"
+        },
+        {
+          "label": "Statuten",
+          "href": "#/club/statuten"
+        },
+        {
+          "label": "AVG Privacyreglement",
+          "href": "#/club/avg"
+        },
+        {
+          "label": "Club van 100",
+          "href": "#/club/club-van-100"
+        },
+        {
+          "label": "Lidmaatschap",
+          "href": "#/lid-worden"
+        },
+        {
+          "label": "Trainingen",
+          "href": "#/club/trainingen"
+        }
+      ]
     },
     {
       "label": "Wedstrijden",
-      "href": "#wedstrijden",
-      "visible": true
+      "href": "",
+      "visible": true,
+      "children": [
+        {
+          "label": "Eerstvolgende wedstrijden",
+          "href": "#/wedstrijden"
+        },
+        {
+          "label": "Uitslagen",
+          "href": "#/uitslagen"
+        },
+        {
+          "label": "Afgelastingen",
+          "href": "#/afgelastingen"
+        }
+      ]
     },
     {
-      "label": "Teams",
-      "href": "#teams",
-      "visible": true
+      "label": "Leden",
+      "href": "",
+      "visible": true,
+      "children": [
+        {
+          "label": "Kleding",
+          "href": "#/leden/kleding"
+        },
+        {
+          "label": "Trainingen",
+          "href": "#/leden/trainingen"
+        }
+      ]
     },
     {
-      "label": "Shop",
-      "href": "#shop",
-      "visible": true
+      "label": "Sponsoring",
+      "href": "#/sponsoring",
+      "visible": true,
+      "children": []
+    }
+  ],
+  "utility": [
+    {
+      "label": "Toernooien",
+      "href": "#/toernooien"
     },
     {
-      "label": "Lid worden",
-      "href": "#lid",
-      "visible": true
+      "label": "Webshop",
+      "href": "#/shop"
     },
     {
-      "label": "Sponsors",
-      "href": "#sponsors",
-      "visible": true
+      "label": "Nieuws",
+      "href": "#/nieuws"
     },
     {
       "label": "Contact",
-      "href": "#contact",
-      "visible": true
+      "href": "#/contact"
     }
-  ]
+  ],
+  "cta": {
+    "label": "Lid worden",
+    "href": "#/lid-worden"
+  }
 }

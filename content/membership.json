@@ -1,67 +1,110 @@
 {
-  "intro": "Meld je aan via de KNVB. Je kunt eerst een proeftraining volgen om de club, het team en de trainers te leren kennen.",
+  "intro": "Nieuwe leden zijn altijd welkom bij VV Monnickendam. Of je nu jong bent of oud, beginner of ervaren speler: we kijken graag samen wat het beste bij je past.",
+  "steps": [
+    {
+      "title": "Aanmelden",
+      "text": "Aanmelden kan via de KNVB. Daarna nemen we contact met je op om de mogelijkheden te bespreken en vragen te beantwoorden."
+    },
+    {
+      "title": "Proeftraining",
+      "text": "Twijfel je? Volg eerst een proeftraining om kennis te maken met de club, het team en de trainers."
+    },
+    {
+      "title": "Opzeggen of wijzigen",
+      "text": "Wijzigingen in je lidmaatschap of opzegging regel je via de website. Bij vragen helpen we je graag."
+    }
+  ],
+  "tiersTitle": "Drie lidmaatschapsvormen",
+  "tiersIntro": "Leden (of ouders/verzorgers) kiezen zelf hoe zij bijdragen aan de vereniging. Nieuwe leden worden standaard ingedeeld bij Zilver.",
   "tiers": [
     {
       "name": "Goud",
       "headline": "Geen contributie",
-      "detail": "Je zet je gemiddeld 5 uur per week in als vrijwilliger. Vrijstelling aanvragen bij het bestuur."
+      "detail": "Je zet je gemiddeld 5 uur per week in als vrijwilliger. Vrijstelling aanvragen bij het bestuur (bestuur@vvmonnickendam.nl)."
     },
     {
       "name": "Zilver",
       "headline": "Normale contributie",
-      "detail": "Plus een beperkt aantal vrijwilligerstaken. Nieuwe leden worden standaard zo ingedeeld."
+      "detail": "Je voert een beperkt aantal vrijwilligerstaken uit (zie ledendienst)."
     },
     {
       "name": "Brons",
       "headline": "Contributie + € 100",
-      "detail": "Je betaalt een vrijwilligersbijdrage van € 100 en hoeft geen vrijwilligerstaken te doen."
+      "detail": "Normale contributie plus € 100 vrijwilligersbijdrage; je kiest ervoor geen vrijwilligerstaken te doen."
     }
   ],
-  "feeNote": "Contributie per jaar",
+  "feeNote": "Contributie",
+  "feeFootnote": "* Ook van toepassing als je bij de selectie speelt.",
   "fees": [
     {
       "label": "Kabouters",
+      "half": "€ 36,75",
       "price": "€ 73,50"
     },
     {
       "label": "5-6 jaar",
+      "half": "€ 78,75",
       "price": "€ 157,50"
     },
     {
       "label": "7-9 jaar",
+      "half": "€ 84,00",
       "price": "€ 168,00"
     },
     {
       "label": "10-11 jaar",
+      "half": "€ 94,50",
       "price": "€ 189,00"
     },
     {
       "label": "12-14 jaar",
+      "half": "€ 99,75",
       "price": "€ 199,50"
     },
     {
       "label": "15-16 jaar",
+      "half": "€ 107,63",
       "price": "€ 215,25"
     },
     {
-      "label": "17-19 jaar",
+      "label": "17-19 jaar*",
+      "half": "€ 118,13",
       "price": "€ 236,25"
     },
     {
       "label": "Senioren",
+      "half": "€ 136,50",
       "price": "€ 273,00"
     },
     {
       "label": "Senioren selectie",
+      "half": "€ 149,63",
       "price": "€ 299,25"
     },
     {
+      "label": "Stand-by",
+      "half": "€ 86,63",
+      "price": "€ 173,25"
+    },
+    {
       "label": "35+ / 45+",
+      "half": "€ 86,63",
       "price": "€ 173,25"
     },
     {
       "label": "Walking voetbal",
+      "half": "€ 28,88",
       "price": "€ 57,75"
+    },
+    {
+      "label": "Niet spelend lid",
+      "half": "€ 28,88",
+      "price": "€ 57,75"
+    },
+    {
+      "label": "Club van 100",
+      "half": "n.v.t.",
+      "price": "€ 25,00"
     }
   ]
 }

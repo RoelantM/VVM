@@ -35,3 +35,12 @@ Let op: de bron is de publieke HTML van de huidige clubsite (`netlify/lib/progra
 
 ## Achtergrondfoto's
 Via het CMS (Pagina-instellingen → Achtergrondfoto's) kun je per sectie een foto instellen. Die wordt grijs, vervaagd en heel transparant getoond. Zonder foto's verandert er niets. Gebruik alleen foto's waarvoor toestemming is (AVG).
+
+## Pagina's en menu
+De site heeft aparte pagina's (hash-routes, geen server-instellingen nodig): `#/shop`, `#/teams`, `#/wedstrijden`, `#/uitslagen`, `#/afgelastingen`, `#/lid-worden`, `#/sponsoring`, `#/toernooien`, `#/nieuws`, `#/contact` en inhoudspagina's `#/club/...` en `#/leden/...`.
+Alles is bewerkbaar in `/admin`:
+- **Menu** (Pagina-instellingen → Menu): items, uitklapmenu's, bovenbalk, knop, volgorde en zichtbaarheid.
+- **Pagina's** (collectie "Pagina's"): tekst met koppen, lijsten, tabellen, links en afbeeldingen (Markdown-editor). De bestandsnaam bepaalt de route: `club-jeugd` → `#/club/jeugd`, `leden-kleding` → `#/leden/kleding`. Een nieuwe pagina? Maak hem aan met een naam als `club-nieuwe-pagina` en zet een menu-item met doel `#/club/nieuwe-pagina`.
+- **Nieuws**: titel, datum, afbeelding, korte tekst en volledig bericht.
+- **Lid worden en contributie**, **Teams**, **Contacten**, **Sponsors**, **Webshopproducten**: eigen formulieren.
+Het logo staat in `public/logo.png` (vervang het bestand om het te wijzigen).

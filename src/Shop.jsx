@@ -69,7 +69,7 @@ function ProductCard({ p }) {
 
 export function ShopSection() {
   return (
-    <section id="shop" className="section">
+    <section id="shop" className="section first">
       <div className="wrap">
         <p className="eyebrow">Webshop</p>
         <h2>Lions Store</h2>
