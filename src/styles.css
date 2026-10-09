@@ -37,3 +37,4 @@ main,.foot,.nav,.drawer{position:relative;z-index:1}
 @media(max-width:760px){.links{display:none}.cartbtn{margin-left:auto}.matches li{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 .contacts{list-style:none;padding:0}.contacts li{padding:4px 0}
+select{background:var(--bg2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:.3rem .5rem;margin:6px 0}.sponsor img{max-width:100%;max-height:60px}.drawer footer p{margin:0}

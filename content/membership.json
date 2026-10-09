@@ -1,0 +1,50 @@
+{
+  "note": "Aanmelden via de KNVB; eerst een proeftraining kan. Gouden lid: geen contributie, ±5 uur vrijwilligerswerk per week. Zilver (standaard): normale contributie + beperkt aantal taken. Brons: normale contributie + €100 vrijwilligersbijdrage.",
+  "feeNote": "Bedragen per jaar.",
+  "fees": [
+    {
+      "label": "Kabouters",
+      "price": "€ 73,50"
+    },
+    {
+      "label": "5-6 jaar",
+      "price": "€ 157,50"
+    },
+    {
+      "label": "7-9 jaar",
+      "price": "€ 168,00"
+    },
+    {
+      "label": "10-11 jaar",
+      "price": "€ 189,00"
+    },
+    {
+      "label": "12-14 jaar",
+      "price": "€ 199,50"
+    },
+    {
+      "label": "15-16 jaar",
+      "price": "€ 215,25"
+    },
+    {
+      "label": "17-19 jaar",
+      "price": "€ 236,25"
+    },
+    {
+      "label": "Senioren",
+      "price": "€ 273,00"
+    },
+    {
+      "label": "Senioren selectie",
+      "price": "€ 299,25"
+    },
+    {
+      "label": "35+ / 45+",
+      "price": "€ 173,25"
+    },
+    {
+      "label": "Walking voetbal",
+      "price": "€ 57,75"
+    }
+  ]
+}

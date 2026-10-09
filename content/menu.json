@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "label": "Nieuws",
+      "href": "#nieuws",
+      "visible": true
+    },
+    {
+      "label": "Wedstrijden",
+      "href": "#wedstrijden",
+      "visible": true
+    },
+    {
+      "label": "Teams",
+      "href": "#teams",
+      "visible": true
+    },
+    {
+      "label": "Shop",
+      "href": "#shop",
+      "visible": true
+    },
+    {
+      "label": "Lid worden",
+      "href": "#lid",
+      "visible": true
+    },
+    {
+      "label": "Sponsors",
+      "href": "#sponsors",
+      "visible": true
+    },
+    {
+      "label": "Contact",
+      "href": "#contact",
+      "visible": true
+    }
+  ]
+}

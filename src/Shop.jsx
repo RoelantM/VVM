@@ -6,18 +6,36 @@ export const useCart = () => useContext(Cart)
 const eur = (n) => n == null ? 'Prijs volgt' : n.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' })
 
 export function CartProvider({ children }) {
+  // Regels: sleutel "id|maat" -> aantal
   const [lines, setLines] = useState({})
   const [open, setOpen] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
   const api = useMemo(() => {
-    const items = Object.entries(lines).map(([id, q]) => ({ ...products.find((p) => p.id === id), q }))
+    const items = Object.entries(lines).map(([key, q]) => {
+      const [id, size = ''] = key.split('|')
+      return { ...products.find((p) => p.id === id), key, size, q }
+    })
     return {
-      lines, items, open, setOpen,
+      items, open, setOpen, busy, error,
       count: items.reduce((a, i) => a + i.q, 0),
       total: items.reduce((a, i) => a + i.q * (i.price || 0), 0),
-      add: (id) => { setLines((l) => ({ ...l, [id]: (l[id] || 0) + 1 })); setOpen(true) },
-      dec: (id) => setLines((l) => { const n = { ...l }; if ((n[id] || 0) <= 1) delete n[id]; else n[id]--; return n }),
+      add: (id, size = '') => { const k = id + '|' + size; setLines((l) => ({ ...l, [k]: (l[k] || 0) + 1 })); setOpen(true) },
+      dec: (k) => setLines((l) => { const n = { ...l }; if ((n[k] || 0) <= 1) delete n[k]; else n[k]--; return n }),
+      checkout: async () => {
+        setBusy(true); setError('')
+        try {
+          const res = await fetch('/.netlify/functions/checkout', {
+            method: 'POST', headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ items: items.map((i) => ({ id: i.id, size: i.size, q: i.q })) }),
+          })
+          const data = await res.json()
+          if (!res.ok || !data.url) throw new Error(data.error || 'Afrekenen is mislukt')
+          location.href = data.url
+        } catch (e) { setError(e.message); setBusy(false) }
+      },
     }
-  }, [lines, open])
+  }, [lines, open, busy, error])
   return <Cart.Provider value={api}>{children}</Cart.Provider>
 }
 
@@ -29,23 +47,34 @@ function Art({ p }) {
   )
 }
 
-export function ShopSection() {
+function ProductCard({ p }) {
   const cart = useCart()
+  const [size, setSize] = useState(p.sizes[0] || '')
+  const buyable = p.price != null
+  return (
+    <article className="card product">
+      <div className="art"><Art p={p} /></div>
+      <h3>{p.name}</h3>
+      {p.sizes.length > 0 && (
+        <select value={size} onChange={(e) => setSize(e.target.value)} aria-label={'Maat ' + p.name}>
+          {p.sizes.map((z) => <option key={z}>{z}</option>)}
+        </select>
+      )}
+      <div className="row"><strong>{eur(p.price)}</strong>
+        <button className="btn small" disabled={!buyable} onClick={() => cart.add(p.id, size)}>{buyable ? 'In winkelmand' : 'Binnenkort'}</button>
+      </div>
+    </article>
+  )
+}
+
+export function ShopSection() {
   return (
     <section id="shop" className="section">
       <div className="wrap">
         <p className="eyebrow">Webshop</p>
         <h2>Lions Store</h2>
-        <p className="lead">Draag de kleuren van Monnickendam. Leden krijgen shirt, broekje en sokken van de club; de rest bestel je hier, bedrukken kan met naam of initialen. (Productfoto's en prijzen volgen; nu nog de bestaande webshop gebruiken: vvmkleding.netlify.app.)</p>
-        <div className="grid products">
-          {products.map((p) => (
-            <article key={p.id} className="card product">
-              <div className="art"><Art p={p} /></div>
-              <h3>{p.name}</h3>
-              <div className="row"><strong>{eur(p.price)}</strong><button className="btn small" onClick={() => cart.add(p.id)}>In winkelmand</button></div>
-            </article>
-          ))}
-        </div>
+        <p className="lead">Leden krijgen shirt, broekje en sokken van de club; de rest bestel je hier. Betalen via iDEAL of kaart (Stripe), afhalen in de kantine. Prijzen volgen: tot die tijd bestel je via vvmkleding.netlify.app.</p>
+        <div className="grid products">{products.map((p) => <ProductCard key={p.id} p={p} />)}</div>
       </div>
     </section>
   )
@@ -59,17 +88,18 @@ export function CartDrawer() {
       {c.items.length === 0 ? <p className="muted">Je winkelmand is leeg.</p> : (
         <ul>
           {c.items.map((i) => (
-            <li key={i.id}>
-              <span>{i.name}</span>
-              <span className="qty"><button onClick={() => c.dec(i.id)} aria-label="Minder">−</button>{i.q}<button onClick={() => c.add(i.id)} aria-label="Meer">+</button></span>
-              <span>{i.price == null ? '—' : eur(i.q * i.price)}</span>
+            <li key={i.key}>
+              <span>{i.name}{i.size && ' (' + i.size + ')'}</span>
+              <span className="qty"><button onClick={() => c.dec(i.key)} aria-label="Minder">−</button>{i.q}<button onClick={() => c.add(i.id, i.size)} aria-label="Meer">+</button></span>
+              <span>{eur(i.q * i.price)}</span>
             </li>
           ))}
         </ul>
       )}
       <footer>
         <div className="row"><span>Totaal</span><strong>{eur(c.total)}</strong></div>
-        <button className="btn" disabled>Afrekenen – betaalkoppeling volgt</button>
+        {c.error && <p className="muted" role="alert">{c.error}</p>}
+        <button className="btn" disabled={c.items.length === 0 || c.busy} onClick={c.checkout}>{c.busy ? 'Even geduld…' : 'Afrekenen'}</button>
       </footer>
     </aside>
   )

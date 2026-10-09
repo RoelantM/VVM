@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cms": "decap-server"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.1.2",
+    "decap-server": "^3.11.3",
     "vite": "^8.3.4"
   }
 }

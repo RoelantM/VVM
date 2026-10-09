@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "role": "Ledenadministratie",
+      "name": "Nicolette Combee",
+      "email": "ledenadministratie@vvmonnickendam.nl"
+    },
+    {
+      "role": "Jeugdvoetbal",
+      "name": "Werner Moison",
+      "email": "jeugdvoorzitter@vvmonnickendam.nl"
+    },
+    {
+      "role": "Wedstrijdsecretariaat",
+      "name": "Foeke Tichelaar",
+      "email": "wedstrijdsecretaris@vvmonnickendam.nl"
+    },
+    {
+      "role": "Ledendienst / vrijwilligers",
+      "name": "Michelle Oudhuis",
+      "email": "ledendienst@vvmonnickendam.nl"
+    },
+    {
+      "role": "Toernooicommissie",
+      "name": "Sebas de Groot",
+      "email": "toernooicommissie@vvmonnickendam.nl"
+    },
+    {
+      "role": "Sponsorcommissie",
+      "name": "Remco Heeres",
+      "email": "sponsoring@vvmonnickendam.nl"
+    },
+    {
+      "role": "Kledingcommissie",
+      "name": "Niels Kuijpers",
+      "email": "kledingcommissie@vvmonnickendam.nl"
+    }
+  ]
+}

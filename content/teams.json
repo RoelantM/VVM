@@ -1,0 +1,105 @@
+{
+  "groups": [
+    {
+      "title": "Senioren heren",
+      "items": [
+        {
+          "name": "Zaterdag 1"
+        },
+        {
+          "name": "Zaterdag 2"
+        },
+        {
+          "name": "Zaterdag 3"
+        },
+        {
+          "name": "Zondag 2"
+        },
+        {
+          "name": "Zondag 45+1"
+        },
+        {
+          "name": "Zondag 45+2"
+        },
+        {
+          "name": "Zondag 45+3"
+        }
+      ]
+    },
+    {
+      "title": "Vrouwen",
+      "items": [
+        {
+          "name": "Zondag VR1"
+        }
+      ]
+    },
+    {
+      "title": "Junioren",
+      "items": [
+        {
+          "name": "O14-1"
+        },
+        {
+          "name": "O15-1"
+        },
+        {
+          "name": "O16-1"
+        }
+      ]
+    },
+    {
+      "title": "Pupillen",
+      "items": [
+        {
+          "name": "O8-1"
+        },
+        {
+          "name": "O8-2"
+        },
+        {
+          "name": "O8-3JM"
+        },
+        {
+          "name": "O9-1"
+        },
+        {
+          "name": "O9-2"
+        },
+        {
+          "name": "O9-3"
+        },
+        {
+          "name": "O10-1"
+        },
+        {
+          "name": "O10-2"
+        },
+        {
+          "name": "O10-3"
+        },
+        {
+          "name": "O11-1"
+        },
+        {
+          "name": "O11-2"
+        },
+        {
+          "name": "O11-3"
+        },
+        {
+          "name": "O11-4"
+        },
+        {
+          "name": "O13-1"
+        },
+        {
+          "name": "O13-2"
+        },
+        {
+          "name": "O13-3"
+        }
+      ]
+    }
+  ]
+}

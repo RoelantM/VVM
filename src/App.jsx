@@ -4,7 +4,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Scene, { scroll } from './Scene.jsx'
 import { CartProvider, CartDrawer, ShopSection, useCart } from './Shop.jsx'
-import { club, news, matches, matchesUrl, resultsUrl, teamGroups, teamsUrl, tournaments, membership, contacts, sponsors } from './data.js'
+import { club, menu, news, matches, matchesUrl, resultsUrl, teamGroups, teamsUrl, tournaments, membership, contacts, sponsors } from './data.js'
 
 gsap.registerPlugin(ScrollTrigger)
 const fmt = (d) => new Date(d).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -15,7 +15,7 @@ function Nav() {
     <nav className="nav">
       <a href="#top" className="brand">VVM<span> Lions</span></a>
       <div className="links">
-        {[['nieuws', 'Nieuws'], ['wedstrijden', 'Wedstrijden'], ['teams', 'Teams'], ['shop', 'Shop'], ['lid', 'Lid worden'], ['sponsors', 'Sponsors'], ['contact', 'Contact']].map(([h, l]) => <a key={h} href={'#' + h}>{l}</a>)}
+        {menu.map((m) => <a key={m.href} href={m.href}>{m.label}</a>)}
       </div>
       <button className="cartbtn" onClick={() => c.setOpen(true)}>Winkelmand ({c.count})</button>
     </nav>
@@ -95,7 +95,10 @@ export default function App() {
 
         <section id="sponsors" className="section"><div className="wrap">
           <p className="eyebrow">Sponsors</p><h2>Samen sterk</h2>
-          <div className="grid six">{sponsors.map((s) => <div key={s} className="card sponsor reveal">{s}</div>)}</div>
+          <div className="grid six">{sponsors.map((s, i) => {
+            const inner = s.logo ? <img src={s.logo} alt={s.name} /> : s.name
+            return s.url ? <a key={i} href={s.url} target="_blank" rel="noreferrer" className="card sponsor reveal">{inner}</a> : <div key={i} className="card sponsor reveal">{inner}</div>
+          })}</div>
           <p className="lead">Sponsorlogo's volgen. Ook sponsor worden? Mail naar <a href={'mailto:' + club.sponsorMail}>{club.sponsorMail}</a>.</p>
         </div></section>
 

@@ -1,0 +1,166 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Lokaal testen: `npm run cms` (decap-server) + `npm run dev`, ga naar /admin/
+local_backend: true
+
+locale: nl
+media_folder: public/uploads
+public_folder: /uploads
+site_url: https://www.vvmonnickendam.nl
+
+collections:
+  - name: nieuws
+    label: Nieuws
+    label_singular: Nieuwsbericht
+    folder: content/news
+    extension: json
+    format: json
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} · {{title}}"
+    sort: "date:desc"
+    fields:
+      - { name: date, label: Datum, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD" }
+      - { name: title, label: Titel, widget: string }
+      - { name: text, label: Korte tekst, widget: text }
+      - { name: url, label: Link naar volledig bericht (optioneel), widget: string, required: false }
+
+  - name: pagina
+    label: Pagina-instellingen
+    files:
+      - name: menu
+        label: Menu (bovenin)
+        file: content/menu.json
+        format: json
+        fields:
+          - name: items
+            label: Menu-items (sleep om de volgorde te wijzigen)
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: Tekst, widget: string }
+              - { name: href, label: "Doel (#sectie of volledige link)", widget: string }
+              - { name: visible, label: Zichtbaar, widget: boolean, default: true }
+      - name: settings
+        label: Clubgegevens
+        file: content/settings.json
+        format: json
+        fields:
+          - { name: name, label: Clubnaam, widget: string }
+          - { name: nick, label: Bijnaam, widget: string }
+          - { name: intro, label: Introtekst (hero), widget: text }
+          - { name: address, label: Adres, widget: string }
+          - { name: phone, label: Telefoon, widget: string }
+          - { name: sponsorMail, label: E-mail sponsorcommissie, widget: string }
+          - { name: founded, label: Opgericht (jaar), widget: number }
+          - { name: members, label: Aantal leden (ong.), widget: number }
+          - { name: teams, label: Aantal teams, widget: number }
+          - { name: facebook, label: Facebook, widget: string }
+          - { name: instagram, label: Instagram, widget: string }
+          - { name: x, label: X, widget: string }
+          - { name: joinUrl, label: Link inschrijven (KNVB), widget: string }
+          - { name: siteUrl, label: Link oude clubsite, widget: string }
+          - { name: matchesUrl, label: Link wedstrijdprogramma, widget: string }
+          - { name: resultsUrl, label: Link uitslagen, widget: string }
+          - { name: teamsUrl, label: Link teampagina's, widget: string }
+          - { name: trainingScheduleUrl, label: Link trainingsschema, widget: string }
+      - name: matches
+        label: Wedstrijden (uitgelicht)
+        file: content/matches.json
+        format: json
+        fields:
+          - name: items
+            label: Wedstrijden
+            widget: list
+            fields:
+              - { name: when, label: Wanneer, widget: string }
+              - { name: home, label: Thuis, widget: string }
+              - { name: away, label: Uit, widget: string }
+              - { name: place, label: Plaats, widget: string }
+      - name: teams
+        label: Teams
+        file: content/teams.json
+        format: json
+        fields:
+          - name: groups
+            label: Groepen
+            widget: list
+            fields:
+              - { name: title, label: Groepsnaam, widget: string }
+              - name: items
+                label: Teams
+                widget: list
+                fields: [{ name: name, label: Team, widget: string }]
+      - name: tournaments
+        label: Toernooien
+        file: content/tournaments.json
+        format: json
+        fields:
+          - name: items
+            label: Toernooien
+            widget: list
+            fields:
+              - { name: name, label: Naam, widget: string }
+              - { name: for, label: Voor wie, widget: string }
+      - name: membership
+        label: Lidmaatschap en contributie
+        file: content/membership.json
+        format: json
+        fields:
+          - { name: note, label: Uitleg, widget: text }
+          - { name: feeNote, label: Opmerking bij bedragen, widget: string }
+          - name: fees
+            label: Contributie
+            widget: list
+            fields:
+              - { name: label, label: Lidsoort, widget: string }
+              - { name: price, label: Bedrag, widget: string }
+      - name: contacts
+        label: Contactpersonen
+        file: content/contacts.json
+        format: json
+        fields:
+          - name: items
+            label: Contactpersonen
+            widget: list
+            fields:
+              - { name: role, label: Functie/commissie, widget: string }
+              - { name: name, label: Naam, widget: string }
+              - { name: email, label: E-mail, widget: string }
+      - name: sponsors
+        label: Sponsors
+        file: content/sponsors.json
+        format: json
+        fields:
+          - name: items
+            label: Sponsors
+            widget: list
+            fields:
+              - { name: name, label: Naam, widget: string }
+              - { name: level, label: Niveau, widget: select, options: [Hoofdsponsor, Clubsponsor, Jeugdsponsor, Overig], default: Clubsponsor }
+              - { name: logo, label: Logo, widget: image, required: false }
+              - { name: url, label: Website, widget: string, required: false }
+
+  - name: shop
+    label: Webshop
+    files:
+      - name: products
+        label: Producten
+        file: content/products.json
+        format: json
+        fields:
+          - name: items
+            label: Producten
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: id, label: "Code (kort, unieke tekst zonder spaties)", widget: string }
+              - { name: name, label: Naam, widget: string }
+              - { name: price, label: "Prijs in € (leeg = 'Binnenkort', niet te bestellen)", widget: number, value_type: float, required: false }
+              - { name: sizes, label: "Maten, gescheiden door komma's (leeg = geen keuze)", widget: string, required: false }
+              - { name: printable, label: Bedrukken mogelijk, widget: boolean, default: true }
+              - { name: active, label: Tonen in shop, widget: boolean, default: true }
+              - { name: color, label: Hoofdkleur (#hex), widget: string }
+              - { name: trim, label: Bijkleur (#hex), widget: string }

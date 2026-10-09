@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "id": "shirt",
+      "name": "Clubshirt",
+      "price": null,
+      "sizes": "",
+      "printable": true,
+      "color": "#0a8f3c",
+      "trim": "#ffffff",
+      "active": true
+    },
+    {
+      "id": "trainingsbroek",
+      "name": "Trainingsbroek",
+      "price": null,
+      "sizes": "",
+      "printable": true,
+      "color": "#10261a",
+      "trim": "#0a8f3c",
+      "active": true
+    },
+    {
+      "id": "halfzip",
+      "name": "Half-zip / full-zip",
+      "price": null,
+      "sizes": "",
+      "printable": true,
+      "color": "#0a8f3c",
+      "trim": "#ffffff",
+      "active": true
+    },
+    {
+      "id": "regenjas",
+      "name": "Regenjas / parka",
+      "price": null,
+      "sizes": "",
+      "printable": true,
+      "color": "#10261a",
+      "trim": "#ffffff",
+      "active": true
+    },
+    {
+      "id": "tas",
+      "name": "Sporttas / rugzak",
+      "price": null,
+      "sizes": "",
+      "printable": true,
+      "color": "#f4f4f0",
+      "trim": "#0a8f3c",
+      "active": true
+    },
+    {
+      "id": "sokken",
+      "name": "Sokken & scheenbeschermers",
+      "price": null,
+      "sizes": "",
+      "printable": true,
+      "color": "#0a8f3c",
+      "trim": "#ffffff",
+      "active": true
+    }
+  ]
+}
