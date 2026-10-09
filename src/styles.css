@@ -36,3 +36,4 @@ main,.foot,.nav,.drawer{position:relative;z-index:1}
 .foot{padding:40px 16px;text-align:center;color:var(--mut);background:var(--bg)}
 @media(max-width:760px){.links{display:none}.cartbtn{margin-left:auto}.matches li{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.contacts{list-style:none;padding:0}.contacts li{padding:4px 0}

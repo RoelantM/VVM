@@ -3,7 +3,7 @@ import { products } from './data.js'
 
 const Cart = createContext(null)
 export const useCart = () => useContext(Cart)
-const eur = (n) => n.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' })
+const eur = (n) => n == null ? 'Prijs volgt' : n.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' })
 
 export function CartProvider({ children }) {
   const [lines, setLines] = useState({})
@@ -13,7 +13,7 @@ export function CartProvider({ children }) {
     return {
       lines, items, open, setOpen,
       count: items.reduce((a, i) => a + i.q, 0),
-      total: items.reduce((a, i) => a + i.q * i.price, 0),
+      total: items.reduce((a, i) => a + i.q * (i.price || 0), 0),
       add: (id) => { setLines((l) => ({ ...l, [id]: (l[id] || 0) + 1 })); setOpen(true) },
       dec: (id) => setLines((l) => { const n = { ...l }; if ((n[id] || 0) <= 1) delete n[id]; else n[id]--; return n }),
     }
@@ -36,7 +36,7 @@ export function ShopSection() {
       <div className="wrap">
         <p className="eyebrow">Webshop</p>
         <h2>Lions Store</h2>
-        <p className="lead">Draag de kleuren van Monnickendam. (Demo-artikelen en -prijzen – echte producten en betaling volgen.)</p>
+        <p className="lead">Draag de kleuren van Monnickendam. Leden krijgen shirt, broekje en sokken van de club; de rest bestel je hier, bedrukken kan met naam of initialen. (Productfoto's en prijzen volgen; nu nog de bestaande webshop gebruiken: vvmkleding.netlify.app.)</p>
         <div className="grid products">
           {products.map((p) => (
             <article key={p.id} className="card product">
@@ -62,7 +62,7 @@ export function CartDrawer() {
             <li key={i.id}>
               <span>{i.name}</span>
               <span className="qty"><button onClick={() => c.dec(i.id)} aria-label="Minder">−</button>{i.q}<button onClick={() => c.add(i.id)} aria-label="Meer">+</button></span>
-              <span>{eur(i.q * i.price)}</span>
+              <span>{i.price == null ? '—' : eur(i.q * i.price)}</span>
             </li>
           ))}
         </ul>

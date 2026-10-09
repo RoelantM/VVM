@@ -9,6 +9,6 @@ npm run build   # productiebuild in dist/
 ```
 
 ## Status
-- Alle inhoud in `src/data.js` is **placeholder**, behalve clubnaam, adres, telefoon en teamcategorieën. Vervangen zodra de inhoud van www.vvmonnickendam.nl beschikbaar is.
+- `src/data.js` bevat de echte inhoud van www.vvmonnickendam.nl (nieuws, teams, contributie, contacten, toernooien). Nog placeholder: sponsorlogo's/-namen, productprijzen en -foto's webshop, trainingsschema (staat als afbeelding op de site), echt logo.
 - Webshop: winkelmand werkt; afrekenen is nog niet gekoppeld (betaalprovider/Shopify nog te kiezen).
 - Kleuren/logo zijn aannames (groen-wit); echt logo toevoegen.
