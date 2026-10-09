@@ -44,3 +44,6 @@ Alles is bewerkbaar in `/admin`:
 - **Nieuws**: titel, datum, afbeelding, korte tekst en volledig bericht.
 - **Lid worden en contributie**, **Teams**, **Contacten**, **Sponsors**, **Webshopproducten**: eigen formulieren.
 Het logo staat in `public/logo.png` (vervang het bestand om het te wijzigen).
+
+## Next.js-landingpage (demo)
+`landing-next/` bevat een losstaande, cinematic landingpage in Next.js + Tailwind + Framer Motion + React Three Fiber (donker thema, neon-groen). Los van de hoofdsite: `cd landing-next && npm install && npm run dev` → http://localhost:3000.
