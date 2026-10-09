@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
 
-const GREEN = '#0a8f3c'
+const GREEN = '#009040'
 export const scroll = { p: 0 } // blijft bestaan voor App.jsx; de scène leest zelf de DOM
 const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
 const GROUND = -2.1 // "grasrand" in wereldcoördinaten (onderkant van beeld)
@@ -40,14 +40,14 @@ const ballMaterial = () => new THREE.ShaderMaterial({
     void main(){
       float b1=-2., b2=-2.; int bi=0;
       for(int i=0;i<32;i++){ float d=dot(vP,uC[i]); if(d>b1){b2=b1;b1=d;bi=i;} else if(d>b2){b2=d;} }
-      vec3 col = bi<12 ? uGreen*0.85 : vec3(0.96);
+      vec3 col = bi<12 ? uGreen*1.05 : vec3(1.0);
       float seam = smoothstep(0.04,0.0,b1-b2);
-      col = mix(col, vec3(0.03,0.1,0.06), seam);
+      col = mix(col, vec3(0.05,0.22,0.12), seam);
       vec3 N = normalize(vN); vec3 L = normalize(vec3(.45,.75,.6));
-      float diff = 0.3 + 0.8*max(dot(N,L),0.);
+      float diff = 0.52 + 0.62*max(dot(N,L),0.);
       float spec = pow(max(dot(reflect(-L,N),vV),0.), 38.)*0.55*(1.-seam);
-      float rim = pow(1.-max(dot(N,vV),0.), 3.)*0.35;
-      gl_FragColor = vec4(col*diff + spec + rim*vec3(.2,.9,.5), 1.);
+      float rim = pow(1.-max(dot(N,vV),0.), 3.);
+      gl_FragColor = vec4(col*diff*(1.-0.4*rim) + spec, 1.);
     }`,
 })
 const ballMat = ballMaterial()
@@ -134,13 +134,13 @@ function HeroBall() {
     sp.position.set(S.x, GROUND + 0.01, S.z - 0.01)
     const f = 1 - 0.4 * h
     sp.scale.set(R * 1.25 * f, R * 0.28 * f, 1)
-    sp.material.opacity = 0.35 * (1 - 0.7 * h)
+    sp.material.opacity = 0.22 * (1 - 0.7 * h)
     ball.x = S.x; ball.y = y; ball.z = S.z
   })
   return (
     <>
       <group ref={g}><group ref={body}><Ball /></group></group>
-      <mesh ref={spot}><circleGeometry args={[1, 32]} /><meshBasicMaterial color="#34d27a" transparent depthWrite={false} /></mesh>
+      <mesh ref={spot}><circleGeometry args={[1, 32]} /><meshBasicMaterial color="#0a6a30" transparent depthWrite={false} /></mesh>
     </>
   )
 }
@@ -211,7 +211,7 @@ function Goal() {
   const root = useRef(); const net = useRef()
   const s = useRef({ amp: 0, inside: false })
   const v = useMemo(() => new THREE.Vector3(), [])
-  const mat = <meshStandardMaterial color="#f4f4f0" roughness={0.35} metalness={0.2} />
+  const mat = <meshStandardMaterial color="#d2dcd6" roughness={0.35} metalness={0.25} />
   useFrame(({ clock }, dt0) => {
     const dt = Math.min(dt0, 0.05); const S = s.current
     root.current.getWorldPosition(v)
@@ -233,7 +233,7 @@ function Goal() {
       <mesh position={[-1.1, 0.75, 0]}><cylinderGeometry args={[0.05, 0.05, 1.5, 14]} />{mat}</mesh>
       <mesh position={[1.1, 0.75, 0]}><cylinderGeometry args={[0.05, 0.05, 1.5, 14]} />{mat}</mesh>
       <mesh position={[0, 1.5, 0]} rotation={[0, 0, Math.PI / 2]}><cylinderGeometry args={[0.05, 0.05, 2.25, 14]} />{mat}</mesh>
-      <mesh ref={net} position={[0, 0.75, -0.55]}><planeGeometry args={[2.2, 1.5, 22, 15]} /><meshBasicMaterial color="#b9f2cc" wireframe transparent opacity={0.45} /></mesh>
+      <mesh ref={net} position={[0, 0.75, -0.55]}><planeGeometry args={[2.2, 1.5, 22, 15]} /><meshBasicMaterial color="#3f9a63" wireframe transparent opacity={0.55} /></mesh>
     </group>
   )
 }
@@ -247,24 +247,18 @@ const shirtShape = (() => {
   sh.quadraticCurveTo(...P(50, 26), ...P(32, 12))
   return sh
 })()
-const COL_HOME = new THREE.Color(GREEN), COL_AWAY = new THREE.Color('#f4f4f0')
 
 function Shirt() {
   const g = useRef(); const body = useRef(); const badge = useRef()
   const geo = useMemo(() => new THREE.ExtrudeGeometry(shirtShape, { depth: 0.16, bevelEnabled: true, bevelSize: 0.03, bevelThickness: 0.04, bevelSegments: 3 }), [])
-  useFrame(({ clock }, dt) => {
+  useFrame(({ clock }) => {
     const t = clock.elapsedTime
-    const m = (Math.sin(t * 0.5) + 1) / 2
-    const mix = m > 0.5 ? 1 : 0
-    const k = Math.min(1, dt * 3)
-    body.current.material.color.lerp(mix ? COL_AWAY : COL_HOME, k)
-    badge.current.material.color.lerp(mix ? COL_HOME : COL_AWAY, k)
-    if (!reduce) { g.current.rotation.y = Math.sin(t * 0.8) * 0.95; g.current.position.y = Math.sin(t * 1.4) * 0.08 }
+    if (!reduce) { g.current.rotation.y = 0.15 + Math.sin(t * 0.8) * 0.7; g.current.position.y = Math.sin(t * 1.4) * 0.08 }
   })
   return (
-    <group ref={g} rotation={[0.1, 0.5, 0]} scale={0.7}>
-      <mesh ref={body} geometry={geo} position={[0, 0, -0.08]}><meshStandardMaterial color={GREEN} roughness={0.55} /></mesh>
-      <mesh ref={badge} position={[0.22, 0.3, 0.16]} rotation={[Math.PI / 2, 0, 0]}><cylinderGeometry args={[0.1, 0.1, 0.03, 24]} /><meshStandardMaterial color="#fff" /></mesh>
+    <group ref={g} rotation={[0.1, 0.15, 0]} scale={0.7}>
+      <mesh ref={body} geometry={geo} position={[0, 0, -0.08]}><meshStandardMaterial color={GREEN} roughness={0.55} emissive="#009040" emissiveIntensity={0.45} /></mesh>
+      <mesh ref={badge} position={[0.22, 0.3, 0.16]} rotation={[Math.PI / 2, 0, 0]}><cylinderGeometry args={[0.1, 0.1, 0.03, 24]} /><meshStandardMaterial color="#fff" emissive="#ffffff" emissiveIntensity={0.7} /></mesh>
     </group>
   )
 }
@@ -302,12 +296,12 @@ export default function Scene() {
       <Canvas eventSource={document.documentElement} eventPrefix="client" camera={{ position: [0, 0, 10.5], fov: 30 }} dpr={[1, 1.75]} gl={{ powerPreference: 'high-performance' }}>
         <hemisphereLight args={['#ffffff', '#0a5a28', 0.9]} />
         <directionalLight position={[4, 6, 5]} intensity={1.7} />
-        <pointLight position={[0, GROUND + 0.6, 2]} color="#34d27a" intensity={6} distance={9} />
+        <pointLight position={[0, GROUND + 0.6, 2]} color="#7fd69f" intensity={3} distance={9} />
         <Rig />
         <HeroBall />
         {/* grasrand */}
-        <mesh position={[0, GROUND, -1.5]}><planeGeometry args={[40, 0.015]} /><meshBasicMaterial color="#34d27a" transparent opacity={0.3} /></mesh>
-        <Sparkles count={70} scale={[14, 8, 4]} size={3} speed={reduce ? 0 : 0.35} opacity={0.6} color="#9fe3b6" />
+        <mesh position={[0, GROUND, -1.5]}><planeGeometry args={[40, 0.015]} /><meshBasicMaterial color="#009040" transparent opacity={0.35} /></mesh>
+        <Sparkles count={70} scale={[14, 8, 4]} size={4} speed={reduce ? 0 : 0.35} opacity={0.55} color="#46b86b" />
 
         <Pinned anchor="nieuws" dx={-0.62} z={-1} fixedY={GROUND} scale={0.9}><Cone /></Pinned>
         <Pinned anchor="nieuws" dx={-0.48} z={-1.3} fixedY={GROUND} scale={0.9}><Cone /></Pinned>
