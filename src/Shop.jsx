@@ -73,7 +73,7 @@ export function ShopSection() {
       <div className="wrap">
         <p className="eyebrow">Webshop</p>
         <h2>Lions Store</h2>
-        <p className="lead">Leden krijgen shirt, broekje en sokken van de club; de rest bestel je hier. Betalen via iDEAL of kaart (Stripe), afhalen in de kantine. Prijzen volgen: tot die tijd bestel je via vvmkleding.netlify.app.</p>
+        <p className="lead">Leden krijgen shirt, broekje en sokken van de club; de rest bestel je hier. Betalen via iDEAL of kaart (Stripe), afhalen in de kantine.  Prijzen en maten volgen binnenkort.</p>
         <div className="grid products">{products.map((p) => <ProductCard key={p.id} p={p} />)}</div>
       </div>
     </section>

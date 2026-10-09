@@ -83,11 +83,6 @@ collections:
           - { name: instagram, label: Instagram, widget: string }
           - { name: x, label: X, widget: string }
           - { name: joinUrl, label: Link inschrijven (KNVB), widget: string }
-          - { name: siteUrl, label: Link oude clubsite, widget: string }
-          - { name: matchesUrl, label: Link wedstrijdprogramma, widget: string }
-          - { name: resultsUrl, label: Link uitslagen, widget: string }
-          - { name: teamsUrl, label: Link teampagina's, widget: string }
-          - { name: trainingScheduleUrl, label: Link trainingsschema, widget: string }
       - name: matches
         label: Wedstrijden (uitgelicht)
         file: content/matches.json
@@ -115,8 +110,9 @@ collections:
                 label: Teams
                 widget: list
                 fields:
-                  - { name: name, label: Team, widget: string }
-                  - { name: code, label: "Sportlink-teamcode (voor live programma, optioneel)", widget: string, required: false }
+                  - { name: name, label: "Teamnaam (zoals in het programma, bv. Monnickendam 1)", widget: string }
+                  - { name: day, label: Speeldag, widget: select, options: [{ label: Zaterdag, value: zaterdag }, { label: Zondag, value: zondag }], default: zaterdag }
+                  - { name: code, label: "Sportlink-teamcode (voor het programma van dit team)", widget: string, required: false }
       - name: photos
         label: "Achtergrondfoto's (subtiel)"
         file: content/photos.json

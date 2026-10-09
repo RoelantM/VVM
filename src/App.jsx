@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Scene, { scroll } from './Scene.jsx'
 import { CartProvider, CartDrawer, useCart } from './Shop.jsx'
 import Programma from './Programma.jsx'
-import { ContentPage, NewsList, NewsCard, NewsDetail, TeamsPage, ProgramPage, ShopPage, Membership, ContactPage, SponsorPage, TournamentPage, NotFound } from './Pages.jsx'
+import { ContentPage, NewsList, NewsCard, NewsDetail, TeamsPage, TeamPage, ProgramPage, ShopPage, Membership, ContactPage, SponsorPage, TournamentPage, NotFound } from './Pages.jsx'
 import { club, menu, news, photos } from './data.js'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -68,7 +68,8 @@ function Home() {
 
       <section id="wedstrijden" className="section"><div className="wrap">
         <p className="eyebrow">Wedstrijden</p><h2>Eerstvolgende speeldag</h2>
-        <Programma />
+        <Programma firstDayOnly />
+        <p className="lead"><a className="btn" href="#/wedstrijden">Volledig programma</a> <a className="btn ghost" href="#/uitslagen">Uitslagen</a></p>
       </div></section>
 
       <section id="nieuws" className="section"><Bg id="nieuws" /><div className="wrap">
@@ -95,6 +96,7 @@ function Router({ route }) {
   if (route === 'nieuws') return <NewsList />
   if (a === 'nieuws' && b) return <NewsDetail slug={b} />
   if (route === 'teams') return <TeamsPage />
+  if (a === 'teams' && b) return <TeamPage code={b} />
   if (['wedstrijden', 'uitslagen', 'afgelastingen'].includes(route)) return <ProgramPage kind={route} />
   if (route === 'shop') return <ShopPage />
   if (route === 'lid-worden' || route === 'club/lidmaatschap') return <Membership />

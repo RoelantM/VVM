@@ -14,11 +14,9 @@ const newsFiles = import.meta.glob('../content/news/*.json', { eager: true, impo
 
 export const club = {
   ...settings,
+  teams: teamsFile.groups.reduce((n, g) => n + g.items.length, 0), // aantal komt uit de teamlijst
   social: { Facebook: settings.facebook, Instagram: settings.instagram, X: settings.x },
 }
-export const matchesUrl = settings.matchesUrl
-export const resultsUrl = settings.resultsUrl
-export const teamsUrl = settings.teamsUrl
 
 export const menu = {
   items: menuFile.items.filter((m) => m.visible !== false),
@@ -29,8 +27,11 @@ export const news = Object.entries(newsFiles)
   .map(([path, n]) => ({ ...n, slug: path.split('/').pop().replace('.json', '') }))
   .sort((a, b) => String(b.date).localeCompare(String(a.date)))
 export const matches = matchesFile.items
-export const teamGroups = teamsFile.groups.map((g) => ({ title: g.title, items: g.items.map((i) => i.name) }))
-export const teamOptions = teamsFile.groups.flatMap((g) => g.items.filter((i) => i.code).map((i) => ({ name: i.name, code: i.code })))
+export const teamGroups = teamsFile.groups
+const dayLabel = (d) => (d === 'zondag' ? 'zondag' : 'zaterdag')
+export const teamLabel = (t) => `${t.name} (${dayLabel(t.day)})`
+export const teamOptions = teamsFile.groups.flatMap((g) => g.items.filter((i) => i.code).map((i) => ({ name: teamLabel(i), code: i.code })))
+export const teamByCode = (c) => teamsFile.groups.flatMap((g) => g.items.map((i) => ({ ...i, group: g.title }))).find((i) => i.code === c)
 export const tournaments = tournamentsFile.items
 export const membership = membershipFile
 export const contacts = contactsFile.items.map((c) => [c.role, c.name, c.email])

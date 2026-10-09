@@ -29,7 +29,7 @@ Alle inhoud staat in `content/*.json` en is bewerkbaar via Decap CMS op `/admin`
 Zet in Netlify (Site settings → Environment variables) `STRIPE_SECRET_KEY` (eerst een `sk_test_...` sleutel). iDEAL activeer je in het Stripe-dashboard onder betaalmethoden.
 
 ## Wedstrijdprogramma (KNVB/Sportlink)
-`netlify/functions/programma.mjs` haalt het programma live op en cachet het 10 minuten (`?team=<Sportlink-teamcode>` voor één team; codes staan in het CMS bij Teams). Lokaal draait dezelfde code via de Vite dev-server. Bij een storing toont de site de handmatige wedstrijden uit het CMS.
+`netlify/functions/programma.mjs` haalt het programma, de uitslagen en afgelastingen live op (pagina's `#/wedstrijden`, `#/uitslagen`, `#/afgelastingen` en per team `#/teams/<teamcode>`) en cachet het 10 minuten (`?team=<Sportlink-teamcode>` voor één team; codes staan in het CMS bij Teams). Lokaal draait dezelfde code via de Vite dev-server. Bij een storing toont de site de handmatige wedstrijden uit het CMS.
 
 Let op: de bron is de publieke HTML van de huidige clubsite (`netlify/lib/programma.mjs`). Verandert Sportlink die opmaak, of verdwijnt de oude clubsite, dan moet de parser mee. De stabiele route is de officiële Sportlink Club.Dataservice (clientId aanvragen bij Sportlink/KNVB); alleen `fetchProgram()` hoeft dan vervangen te worden.
 

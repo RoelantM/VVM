@@ -95,3 +95,8 @@ body{background:linear-gradient(180deg,#f4faf5 0%,#eaf6ee 100%) fixed}
 .prose th{color:var(--mut)}.x{color:var(--fg)}
 .logo img{height:62px}
 @media(max-width:980px){.hdr .util{display:none}}
+.teamgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-top:10px}
+.teamtile{display:flex;flex-direction:column;gap:2px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-decoration:none;color:var(--fg);transition:border-color .15s,transform .15s}
+a.teamtile:hover{border-color:var(--g);transform:translateY(-2px)}.teamtile .muted{text-transform:capitalize}
+.sub{font-size:1.8rem;margin:2rem 0 .4rem}
+.subnav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 1rem}.subnav a{border:1px solid var(--line);border-radius:999px;padding:.35rem 1rem;text-decoration:none;color:var(--fg);background:#fff;font-weight:600}.subnav a.on{background:var(--gd);color:#fff;border-color:var(--gd)}

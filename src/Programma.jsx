@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { matches as fallback, matchesUrl, resultsUrl, teamOptions } from './data.js'
+import { matches as fallback, teamOptions } from './data.js'
 
 const Shield = () => <svg className="crest" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 1 3 4v9c0 6 4 11 9 14 5-3 9-8 9-14V4z" fill="none" stroke="currentColor" strokeWidth="1.5" opacity=".5" /></svg>
 // Teamlogo (Sportlink-CDN); bij ontbreken of fout een neutraal wapen
@@ -9,13 +9,16 @@ function Crest({ src, name }) {
   return <img className="crest" src={src} alt={name} loading="lazy" referrerPolicy="no-referrer" onError={() => setBad(true)} />
 }
 
-// Haalt het programma live op via /.netlify/functions/programma (KNVB/Sportlink-data via de clubsite).
-// Lukt dat niet (bv. offline), dan tonen we de handmatige wedstrijden uit het CMS.
-export default function Programma({ kind = 'programma' }) {
-  const firstDayOnly = kind === 'programma'
-  const [team, setTeam] = useState('')
+const EMPTY = { programma: 'Geen wedstrijden gepland.', uitslagen: 'Geen uitslagen.', afgelastingen: 'Geen afgelastingen.' }
+
+// Live programma/uitslagen/afgelastingen via /.netlify/functions/programma (KNVB/Sportlink-data).
+// firstDayOnly: alleen de eerstvolgende speeldag (voor de homepage). fixedTeam: vaste teamcode (teampagina).
+// Lukt ophalen niet, dan tonen we de handmatige wedstrijden uit het CMS.
+export default function Programma({ kind = 'programma', firstDayOnly = false, fixedTeam = '', hideFilter = false }) {
+  const [team, setTeam] = useState(fixedTeam)
   const [state, setState] = useState({ status: 'loading', matches: [] })
   const [all, setAll] = useState(false)
+  useEffect(() => setTeam(fixedTeam), [fixedTeam])
   useEffect(() => {
     const ac = new AbortController()
     setState((s) => ({ ...s, status: 'loading' }))
@@ -29,23 +32,25 @@ export default function Programma({ kind = 'programma' }) {
   const shown = useMemo(() => {
     if (state.status === 'fallback') return fallback.map((m, i) => ({ id: 'f' + i, date: '', time: m.when, home: m.home, away: m.away, place: m.place }))
     if (!firstDayOnly) return state.matches
-    const first = state.matches[0]?.date // alleen de eerstvolgende speeldag
+    const first = state.matches[0]?.date
     return state.matches.filter((m) => m.date === first)
-  }, [state])
-  const LIMIT = firstDayOnly ? 8 : 40
+  }, [state, firstDayOnly])
+  const LIMIT = firstDayOnly ? 8 : 30
   const visible = all ? shown : shown.slice(0, LIMIT)
-  const groups = useMemo(() => visible.reduce((a, m) => ((a[m.date] ||= []).push(m), a), {}), [shown])
+  const groups = useMemo(() => visible.reduce((a, m) => ((a[m.date] ||= []).push(m), a), {}), [visible])
 
   return (
     <>
-      {kind !== 'afgelastingen' && <label className="muted">Team{' '}
-        <select value={team} onChange={(e) => { setTeam(e.target.value); setAll(false) }} aria-label="Kies een team">
-          <option value="">Alle teams</option>
-          {teamOptions.map((t) => <option key={t.code} value={t.code}>{t.name}</option>)}
-        </select>
-      </label>}
-      {state.status === 'loading' && <p className="muted" aria-live="polite">Programma laden…</p>}
-      {state.status === 'ok' && shown.length === 0 && <p className="muted">{kind === 'afgelastingen' ? 'Geen afgelastingen.' : kind === 'uitslagen' ? 'Geen uitslagen.' : 'Geen wedstrijden gepland.'}</p>}
+      {kind !== 'afgelastingen' && !hideFilter && !fixedTeam && (
+        <label className="muted">Team{' '}
+          <select value={team} onChange={(e) => { setTeam(e.target.value); setAll(false) }} aria-label="Kies een team">
+            <option value="">Alle teams</option>
+            {teamOptions.map((t) => <option key={t.code} value={t.code}>{t.name}</option>)}
+          </select>
+        </label>
+      )}
+      {state.status === 'loading' && <p className="muted" aria-live="polite">Laden…</p>}
+      {state.status === 'ok' && shown.length === 0 && <p className="muted">{EMPTY[kind]}</p>}
       {Object.entries(groups).map(([date, list]) => (
         <div key={date}>
           {date && <h3 className="day">{date}</h3>}
@@ -60,7 +65,6 @@ export default function Programma({ kind = 'programma' }) {
       ))}
       {shown.length > LIMIT && <p><button className="btn ghost small" onClick={() => setAll(!all)}>{all ? 'Minder tonen' : `Toon alle ${shown.length} wedstrijden`}</button></p>}
       {state.status === 'fallback' && <p className="muted">Live programma nu niet beschikbaar.</p>}
-      <p className="lead"><a href={matchesUrl} target="_blank" rel="noreferrer">Volledig programma</a> · <a href={resultsUrl} target="_blank" rel="noreferrer">Uitslagen</a></p>
     </>
   )
 }

@@ -3,7 +3,7 @@ import { marked } from 'marked'
 import DOMPurify from 'dompurify'
 import Programma from './Programma.jsx'
 import { ShopSection } from './Shop.jsx'
-import { club, news, pages, teamGroups, teamOptions, membership, contacts, sponsors, tournaments } from './data.js'
+import { club, news, pages, teamGroups, teamLabel, teamByCode, membership, contacts, sponsors, tournaments } from './data.js'
 
 DOMPurify.addHook('afterSanitizeAttributes', (n) => {
   if (n.tagName === 'A' && /^https?:/.test(n.getAttribute('href') || '')) { n.setAttribute('target', '_blank'); n.setAttribute('rel', 'noopener noreferrer') }
@@ -61,25 +61,46 @@ export function NewsDetail({ slug }) {
 }
 
 export function TeamsPage() {
+  const total = teamGroups.reduce((n, g) => n + g.items.length, 0)
   return (
-    <Page id="teams"><Head eyebrow="Teams" title="Alle teams"><p className="lead">{club.teams} teams, van de jongste jeugd tot de senioren. Klik op een team voor spelers, programma en stand.</p></Head>
-      <div className="grid three">{teamGroups.map((g) => (
-        <div key={g.title} className="card reveal"><h3>{g.title}</h3>
-          <div className="chips teamchips">{g.items.map((t) => { const o = teamOptions.find((x) => x.name === t); return o ? <a key={t} href={`${club.siteUrl}/teams/${o.code}`} target="_blank" rel="noreferrer">{t}</a> : <span key={t}>{t}</span> })}</div>
+    <Page id="teams"><Head eyebrow="Teams" title="Alle teams"><p className="lead">{total} teams, van de jongste jeugd tot de senioren. Kies een team voor het programma en de uitslagen.</p></Head>
+      {teamGroups.map((g) => (
+        <div key={g.title} className="reveal">
+          <h3 style={{ marginTop: '2rem' }}>{g.title} <span className="muted">· {g.items.length}</span></h3>
+          <div className="teamgrid">{g.items.map((t) => (
+            <a key={t.code || t.name + t.day} className="teamtile" href={t.code ? '#/teams/' + t.code : undefined}>
+              <strong>{t.name}</strong><span className="muted">{t.day}</span>
+            </a>))}
+          </div>
         </div>))}
-      </div>
+    </Page>
+  )
+}
+
+export function TeamPage({ code }) {
+  const t = teamByCode(code)
+  if (!t) return <NotFound />
+  return (
+    <Page id="page"><Head crumbs={<><a href="#/teams">Teams</a> / {teamLabel(t)}</>} eyebrow={t.group} title={t.name}><p className="muted">{t.day[0].toUpperCase() + t.day.slice(1)}competitie</p></Head>
+      <h2 className="sub">Programma</h2><Programma kind="programma" fixedTeam={code} />
+      <h2 className="sub">Uitslagen</h2><Programma kind="uitslagen" fixedTeam={code} />
     </Page>
   )
 }
 
 const PROG = {
-  wedstrijden: ['Wedstrijden', 'Eerstvolgende wedstrijden'],
+  wedstrijden: ['Wedstrijden', 'Programma'],
   uitslagen: ['Wedstrijden', 'Uitslagen'],
   afgelastingen: ['Wedstrijden', 'Afgelastingen'],
 }
 export function ProgramPage({ kind }) {
   const [eb, title] = PROG[kind]
-  return <Page id={kind === 'wedstrijden' ? 'wedstrijden' : 'page'}><Head eyebrow={eb} title={title} /><Programma kind={kind === 'wedstrijden' ? 'programma' : kind} /></Page>
+  return (
+    <Page id={kind === 'wedstrijden' ? 'wedstrijden' : 'page'}><Head eyebrow={eb} title={title} />
+      <p className="subnav"><a className={kind === 'wedstrijden' ? 'on' : ''} href="#/wedstrijden">Programma</a><a className={kind === 'uitslagen' ? 'on' : ''} href="#/uitslagen">Uitslagen</a><a className={kind === 'afgelastingen' ? 'on' : ''} href="#/afgelastingen">Afgelastingen</a></p>
+      <Programma kind={kind === 'wedstrijden' ? 'programma' : kind} />
+    </Page>
+  )
 }
 
 export function ShopPage() {

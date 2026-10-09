@@ -4,32 +4,39 @@
       "title": "Senioren heren",
       "items": [
         {
-          "name": "Zaterdag 1",
-          "code": "123332"
+          "name": "Monnickendam 1",
+          "code": "123332",
+          "day": "zaterdag"
         },
         {
-          "name": "Zaterdag 2",
-          "code": "123328"
+          "name": "Monnickendam 2",
+          "code": "123328",
+          "day": "zaterdag"
         },
         {
-          "name": "Zaterdag 3",
-          "code": "123330"
+          "name": "Monnickendam 3",
+          "code": "123330",
+          "day": "zaterdag"
         },
         {
-          "name": "Zondag 2",
-          "code": "123357"
+          "name": "Monnickendam 2",
+          "code": "123357",
+          "day": "zondag"
         },
         {
-          "name": "Zondag 45+1",
-          "code": "234500"
+          "name": "Monnickendam 45+1",
+          "code": "234500",
+          "day": "zondag"
         },
         {
-          "name": "Zondag 45+2",
-          "code": "329300"
+          "name": "Monnickendam 45+2",
+          "code": "329300",
+          "day": "zondag"
         },
         {
-          "name": "Zondag 45+3",
-          "code": "355111"
+          "name": "Monnickendam 45+3",
+          "code": "355111",
+          "day": "zondag"
         }
       ]
     },
@@ -37,8 +44,9 @@
       "title": "Vrouwen",
       "items": [
         {
-          "name": "Zondag VR1",
-          "code": "123347"
+          "name": "Monnickendam VR1",
+          "code": "123347",
+          "day": "zondag"
         }
       ]
     },
@@ -46,16 +54,19 @@
       "title": "Junioren",
       "items": [
         {
-          "name": "O14-1",
-          "code": "317182"
+          "name": "Monnickendam O14-1",
+          "code": "317182",
+          "day": "zaterdag"
         },
         {
-          "name": "O15-1",
-          "code": "281881"
+          "name": "Monnickendam O15-1",
+          "code": "281881",
+          "day": "zaterdag"
         },
         {
-          "name": "O16-1",
-          "code": "306240"
+          "name": "Monnickendam O16-1",
+          "code": "306240",
+          "day": "zaterdag"
         }
       ]
     },
@@ -63,68 +74,84 @@
       "title": "Pupillen",
       "items": [
         {
-          "name": "O8-1",
-          "code": "306657"
+          "name": "Monnickendam O8-1",
+          "code": "306657",
+          "day": "zaterdag"
         },
         {
-          "name": "O8-2",
-          "code": "306673"
+          "name": "Monnickendam O8-2",
+          "code": "306673",
+          "day": "zaterdag"
         },
         {
-          "name": "O8-3JM",
-          "code": "396866"
+          "name": "Monnickendam O8-3JM",
+          "code": "396866",
+          "day": "zaterdag"
         },
         {
-          "name": "O9-1",
-          "code": "281893"
+          "name": "Monnickendam O9-1",
+          "code": "281893",
+          "day": "zaterdag"
         },
         {
-          "name": "O9-2",
-          "code": "281894"
+          "name": "Monnickendam O9-2",
+          "code": "281894",
+          "day": "zaterdag"
         },
         {
-          "name": "O9-3",
-          "code": "281895"
+          "name": "Monnickendam O9-3",
+          "code": "281895",
+          "day": "zaterdag"
         },
         {
-          "name": "O10-1",
-          "code": "306624"
+          "name": "Monnickendam O10-1",
+          "code": "306624",
+          "day": "zaterdag"
         },
         {
-          "name": "O10-2",
-          "code": "306625"
+          "name": "Monnickendam O10-2",
+          "code": "306625",
+          "day": "zaterdag"
         },
         {
-          "name": "O10-3",
-          "code": "335367"
+          "name": "Monnickendam O10-3",
+          "code": "335367",
+          "day": "zaterdag"
         },
         {
-          "name": "O11-1",
-          "code": "281887"
+          "name": "Monnickendam O11-1",
+          "code": "281887",
+          "day": "zaterdag"
         },
         {
-          "name": "O11-2",
-          "code": "281888"
+          "name": "Monnickendam O11-2",
+          "code": "281888",
+          "day": "zaterdag"
         },
         {
-          "name": "O11-3",
-          "code": "281889"
+          "name": "Monnickendam O11-3",
+          "code": "281889",
+          "day": "zaterdag"
         },
         {
-          "name": "O11-4",
-          "code": "281890"
+          "name": "Monnickendam O11-4",
+          "code": "281890",
+          "day": "zaterdag"
         },
         {
-          "name": "O13-1",
-          "code": "281883"
+          "name": "Monnickendam O13-1",
+          "code": "281883",
+          "day": "zaterdag"
         },
         {
-          "name": "O13-2",
-          "code": "281884"
+          "name": "Monnickendam O13-2",
+          "code": "281884",
+          "day": "zaterdag"
         },
         {
-          "name": "O13-3",
-          "code": "281885"
+          "name": "Monnickendam O13-3",
+          "code": "281885",
+          "day": "zaterdag"
         }
       ]
     }
