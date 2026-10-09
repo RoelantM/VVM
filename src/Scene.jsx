@@ -153,21 +153,52 @@ function Cone() {
   )
 }
 
+// Hoekvlag: geveerde mast met banden, voetstuk en knop; doek met VVM-strepen dat golft met windvlagen
+const flagTexture = (() => {
+  if (typeof document === 'undefined') return null
+  const c = document.createElement('canvas'); c.width = 256; c.height = 160
+  const x = c.getContext('2d')
+  for (let i = 0; i < 5; i++) { x.fillStyle = i % 2 ? '#f4f4f0' : GREEN; x.fillRect(0, i * 32, 256, 32) }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4
+  return t
+})()
+
 function CornerFlag() {
-  const flag = useRef()
+  const cloth = useRef(); const pole = useRef()
+  const W = 0.78, H = 0.5
   useFrame(({ clock }) => {
     const t = clock.elapsedTime
-    const pos = flag.current.geometry.attributes.position
+    const pos = cloth.current.geometry.attributes.position
+    const gust = 0.75 + 0.25 * Math.sin(t * 0.7)
     for (let i = 0; i < pos.count; i++) {
-      const x = pos.getX(i) + 0.3 // 0..0.6
-      pos.setZ(i, reduce ? 0 : Math.sin(x * 8 - t * 5) * 0.06 * x * 2)
+      const u = (pos.getX(i) + W / 2) / W // 0 (aan de mast) .. 1 (vrij uiteinde)
+      const v = pos.getY(i) / H
+      pos.setZ(i, reduce ? 0 : u * (0.07 * Math.sin(u * 7 - t * 5.5 + v * 1.8) + 0.03 * Math.sin(u * 13 - t * 9)) * gust)
     }
     pos.needsUpdate = true
+    cloth.current.geometry.computeVertexNormals()
+    if (!reduce) pole.current.rotation.z = Math.sin(t * 1.3) * 0.012 * gust // mast veert licht mee
   })
+  const steel = <meshStandardMaterial color="#d9dde0" metalness={0.7} roughness={0.28} />
   return (
     <group>
-      <mesh position={[0, 0.85, 0]}><cylinderGeometry args={[0.03, 0.03, 1.7, 10]} /><meshStandardMaterial color="#eee" /></mesh>
-      <mesh ref={flag} position={[0.32, 1.4, 0]}><planeGeometry args={[0.6, 0.4, 14, 4]} /><meshStandardMaterial color={GREEN} side={THREE.DoubleSide} /></mesh>
+      {/* voetstuk: grondplaat + kegelvormige huls */}
+      <mesh position={[0, 0.015, 0]}><cylinderGeometry args={[0.2, 0.22, 0.03, 32]} /><meshStandardMaterial color="#1b2a21" roughness={0.8} /></mesh>
+      <mesh position={[0, 0.1, 0]}><cylinderGeometry args={[0.055, 0.14, 0.14, 24]} /><meshStandardMaterial color="#2a3a30" roughness={0.6} metalness={0.3} /></mesh>
+      <group ref={pole} position={[0, 0.17, 0]}>
+        {/* mast met groen-witte banden */}
+        <mesh position={[0, 0.8, 0]}><cylinderGeometry args={[0.022, 0.03, 1.6, 20]} />{steel}</mesh>
+        {[0.25, 0.6, 0.95, 1.3].map((y, i) => (
+          <mesh key={y} position={[0, y, 0]}><cylinderGeometry args={[0.034 - i * 0.003, 0.034 - i * 0.003, 0.14, 20]} /><meshStandardMaterial color={i % 2 ? '#f4f4f0' : GREEN} roughness={0.5} /></mesh>
+        ))}
+        <mesh position={[0, 1.62, 0]}><sphereGeometry args={[0.04, 20, 16]} />{steel}</mesh>
+        {/* ophangringen + doek */}
+        {[1.5, 1.14].map((y) => <mesh key={y} position={[0.012, y, 0]} rotation={[Math.PI / 2, 0, 0]}><torusGeometry args={[0.03, 0.007, 8, 16]} />{steel}</mesh>)}
+        <mesh ref={cloth} position={[W / 2 + 0.03, 1.33, 0]}>
+          <planeGeometry args={[W, H, 36, 12]} />
+          <meshStandardMaterial map={flagTexture} side={THREE.DoubleSide} roughness={0.85} />
+        </mesh>
+      </group>
     </group>
   )
 }

@@ -38,3 +38,13 @@ main,.foot,.nav,.drawer{position:relative;z-index:1}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 .contacts{list-style:none;padding:0}.contacts li{padding:4px 0}
 select{background:var(--bg2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:.3rem .5rem;margin:6px 0}.sponsor img{max-width:100%;max-height:60px}.drawer footer p{margin:0}
+.hero,.section{position:relative}.hero>.wrap,.section>.wrap{position:relative;z-index:1}
+.bgphoto{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.13;filter:grayscale(1) contrast(1.05);mix-blend-mode:luminosity;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 25%,#000 70%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 25%,#000 70%,transparent)}
+.day{margin:1.2rem 0 .4rem;text-transform:capitalize}
+.day{text-transform:none}.day::first-letter{text-transform:uppercase}
+.tiers{margin:28px 0}.tier .badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.15rem .8rem;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.tier-goud .badge{color:#e7c35a;border-color:#e7c35a}.tier-zilver .badge{color:#c9d3cf;border-color:#c9d3cf}.tier-brons .badge{color:#d08a54;border-color:#d08a54}
+.tier h3{margin:.2rem 0 .5rem}.tier p{margin:0;color:var(--mut)}
+.fees dl{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));column-gap:40px;margin:12px 0 0}
+.fees dl>div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}.fees dt{color:var(--mut)}.fees dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}

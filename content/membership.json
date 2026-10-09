@@ -1,6 +1,23 @@
 {
-  "note": "Aanmelden via de KNVB; eerst een proeftraining kan. Gouden lid: geen contributie, ±5 uur vrijwilligerswerk per week. Zilver (standaard): normale contributie + beperkt aantal taken. Brons: normale contributie + €100 vrijwilligersbijdrage.",
-  "feeNote": "Bedragen per jaar.",
+  "intro": "Meld je aan via de KNVB. Je kunt eerst een proeftraining volgen om de club, het team en de trainers te leren kennen.",
+  "tiers": [
+    {
+      "name": "Goud",
+      "headline": "Geen contributie",
+      "detail": "Je zet je gemiddeld 5 uur per week in als vrijwilliger. Vrijstelling aanvragen bij het bestuur."
+    },
+    {
+      "name": "Zilver",
+      "headline": "Normale contributie",
+      "detail": "Plus een beperkt aantal vrijwilligerstaken. Nieuwe leden worden standaard zo ingedeeld."
+    },
+    {
+      "name": "Brons",
+      "headline": "Contributie + € 100",
+      "detail": "Je betaalt een vrijwilligersbijdrage van € 100 en hoeft geen vrijwilligerstaken te doen."
+    }
+  ],
+  "feeNote": "Contributie per jaar",
   "fees": [
     {
       "label": "Kabouters",

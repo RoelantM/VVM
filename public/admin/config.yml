@@ -92,7 +92,22 @@ collections:
               - name: items
                 label: Teams
                 widget: list
-                fields: [{ name: name, label: Team, widget: string }]
+                fields:
+                  - { name: name, label: Team, widget: string }
+                  - { name: code, label: "Sportlink-teamcode (voor live programma, optioneel)", widget: string, required: false }
+      - name: photos
+        label: "Achtergrondfoto's (subtiel)"
+        file: content/photos.json
+        format: json
+        fields:
+          - name: items
+            label: "Foto's"
+            widget: list
+            summary: "{{fields.section}}"
+            fields:
+              - { name: section, label: Sectie, widget: select, options: [{ label: Bovenaan (hero), value: top }, { label: Nieuws, value: nieuws }, { label: Teams, value: teams }, { label: Lid worden, value: lid }, { label: Sponsors, value: sponsors }, { label: Contact, value: contact }] }
+              - { name: image, label: Foto (liefst liggend, ≥1600px breed), widget: image }
+              - { name: alt, label: Beschrijving, widget: string, required: false }
       - name: tournaments
         label: Toernooien
         file: content/tournaments.json
@@ -109,8 +124,16 @@ collections:
         file: content/membership.json
         format: json
         fields:
-          - { name: note, label: Uitleg, widget: text }
-          - { name: feeNote, label: Opmerking bij bedragen, widget: string }
+          - { name: intro, label: Inleiding, widget: text }
+          - name: tiers
+            label: Lidmaatschapsvormen (goud/zilver/brons)
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Naam, widget: string }
+              - { name: headline, label: Kopregel, widget: string }
+              - { name: detail, label: Uitleg, widget: text }
+          - { name: feeNote, label: Titel contributietabel, widget: string }
           - name: fees
             label: Contributie
             widget: list

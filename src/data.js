@@ -7,6 +7,7 @@ import tournamentsFile from '../content/tournaments.json'
 import membershipFile from '../content/membership.json'
 import contactsFile from '../content/contacts.json'
 import sponsorsFile from '../content/sponsors.json'
+import photosFile from '../content/photos.json'
 import productsFile from '../content/products.json'
 
 const newsFiles = import.meta.glob('../content/news/*.json', { eager: true, import: 'default' })
@@ -23,9 +24,11 @@ export const menu = menuFile.items.filter((m) => m.visible !== false)
 export const news = Object.values(newsFiles).sort((a, b) => String(b.date).localeCompare(String(a.date)))
 export const matches = matchesFile.items
 export const teamGroups = teamsFile.groups.map((g) => ({ title: g.title, items: g.items.map((i) => i.name) }))
+export const teamOptions = teamsFile.groups.flatMap((g) => g.items.filter((i) => i.code).map((i) => ({ name: i.name, code: i.code })))
 export const tournaments = tournamentsFile.items
 export const membership = {
-  note: membershipFile.note,
+  intro: membershipFile.intro,
+  tiers: membershipFile.tiers,
   feeNote: membershipFile.feeNote,
   fees: membershipFile.fees.map((f) => [f.label, f.price]),
 }
@@ -34,3 +37,6 @@ export const sponsors = sponsorsFile.items
 export const products = productsFile.items
   .filter((p) => p.active !== false)
   .map((p) => ({ ...p, sizes: (p.sizes || '').split(',').map((s) => s.trim()).filter(Boolean) }))
+
+// Achtergrondfoto's per sectie (leeg tot de club foto's aanlevert); zie content/photos.json
+export const photos = Object.fromEntries((photosFile.items || []).filter((p) => p.image).map((p) => [p.section, p]))

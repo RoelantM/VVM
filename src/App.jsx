@@ -4,10 +4,16 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Scene, { scroll } from './Scene.jsx'
 import { CartProvider, CartDrawer, ShopSection, useCart } from './Shop.jsx'
-import { club, menu, news, matches, matchesUrl, resultsUrl, teamGroups, teamsUrl, tournaments, membership, contacts, sponsors } from './data.js'
+import Programma from './Programma.jsx'
+import { club, menu, news, photos, teamGroups, teamsUrl, tournaments, membership, contacts, sponsors } from './data.js'
 
 gsap.registerPlugin(ScrollTrigger)
 const fmt = (d) => new Date(d).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })
+
+function Bg({ id }) {
+  const p = photos[id]
+  return p ? <div className="bgphoto" role="img" aria-label={p.alt || ''} style={{ backgroundImage: `url(${p.image})` }} /> : null
+}
 
 function Nav() {
   const c = useCart()
@@ -48,7 +54,7 @@ export default function App() {
       <Nav />
       <CartDrawer />
       <main id="top">
-        <header className="hero">
+        <header className="hero"><Bg id="top" />
           <div className="wrap">
             <p className="eyebrow">Sportpark Markgouw · Monnickendam</p>
             <h1>Green-White<br />Lions</h1>
@@ -58,7 +64,7 @@ export default function App() {
           </div>
         </header>
 
-        <section id="nieuws" className="section"><div className="wrap">
+        <section id="nieuws" className="section"><Bg id="nieuws" /><div className="wrap">
           <p className="eyebrow">Nieuws</p><h2>Laatste nieuws</h2>
           <div className="grid three">{news.map((n) => (
             <article key={n.title} className="card reveal"><time>{fmt(n.date)}</time><h3>{n.title}</h3><p>{n.text}</p><a href={n.url} target="_blank" rel="noreferrer">Lees meer</a></article>))}
@@ -67,13 +73,10 @@ export default function App() {
 
         <section id="wedstrijden" className="section"><div className="wrap">
           <p className="eyebrow">Wedstrijden</p><h2>Komend programma</h2>
-          <ul className="matches">{matches.map((m, i) => (
-            <li key={i} className="card reveal"><span className="when">{m.when}</span><span className="vs">{m.home} <em>–</em> {m.away}</span><span className="muted">{m.place}</span></li>))}
-          </ul>
-          <p className="lead"><a href={matchesUrl} target="_blank" rel="noreferrer">Volledig programma</a> · <a href={resultsUrl} target="_blank" rel="noreferrer">Uitslagen</a></p>
+          <Programma />
         </div></section>
 
-        <section id="teams" className="section"><div className="wrap">
+        <section id="teams" className="section"><Bg id="teams" /><div className="wrap">
           <p className="eyebrow">Teams</p><h2>Alle teams</h2>
           <div className="grid three">{teamGroups.map((g) => (
             <div key={g.title} className="card reveal"><h3>{g.title}</h3><div className="chips">{g.items.map((t) => <span key={t}>{t}</span>)}</div></div>))}
@@ -85,15 +88,22 @@ export default function App() {
 
         <ShopSection />
 
-        <section id="lid" className="section"><div className="wrap">
+        <section id="lid" className="section"><Bg id="lid" /><div className="wrap">
           <p className="eyebrow">Lid worden</p><h2>Kom voetballen</h2>
-          <p className="lead">{membership.note}</p>
-          <div className="chips">{membership.fees.map(([k, v]) => <span key={k}>{k}: {v}</span>)}</div>
-          <p className="muted">{membership.feeNote}</p>
+          <p className="lead">{membership.intro}</p>
           <p><a className="btn" href={club.joinUrl} target="_blank" rel="noreferrer">Inschrijven via KNVB</a></p>
+          <div className="grid three tiers">{membership.tiers.map((t) => (
+            <article key={t.name} className={'card tier reveal tier-' + t.name.toLowerCase()}>
+              <span className="badge">{t.name}</span><h3>{t.headline}</h3><p>{t.detail}</p>
+            </article>))}
+          </div>
+          <div className="card fees reveal">
+            <h3>{membership.feeNote}</h3>
+            <dl>{membership.fees.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+          </div>
         </div></section>
 
-        <section id="sponsors" className="section"><div className="wrap">
+        <section id="sponsors" className="section"><Bg id="sponsors" /><div className="wrap">
           <p className="eyebrow">Sponsors</p><h2>Samen sterk</h2>
           <div className="grid six">{sponsors.map((s, i) => {
             const inner = s.logo ? <img src={s.logo} alt={s.name} /> : s.name
@@ -102,7 +112,7 @@ export default function App() {
           <p className="lead">Sponsorlogo's volgen. Ook sponsor worden? Mail naar <a href={'mailto:' + club.sponsorMail}>{club.sponsorMail}</a>.</p>
         </div></section>
 
-        <section id="contact" className="section"><div className="wrap">
+        <section id="contact" className="section"><Bg id="contact" /><div className="wrap">
           <p className="eyebrow">Contact</p><h2>Kom langs</h2>
           <p className="lead">{club.name}<br />{club.address}<br />Tel. <a href={'tel:' + club.phone.replace(/-/g, '')}>{club.phone}</a></p>
           <ul className="contacts">{contacts.map(([f, n, m]) => <li key={f}><strong>{f}</strong> {n} · <a href={'mailto:' + m}>{m}</a></li>)}</ul>

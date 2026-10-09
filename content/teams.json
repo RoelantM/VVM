@@ -4,25 +4,32 @@
       "title": "Senioren heren",
       "items": [
         {
-          "name": "Zaterdag 1"
+          "name": "Zaterdag 1",
+          "code": "123332"
         },
         {
-          "name": "Zaterdag 2"
+          "name": "Zaterdag 2",
+          "code": "123328"
         },
         {
-          "name": "Zaterdag 3"
+          "name": "Zaterdag 3",
+          "code": "123330"
         },
         {
-          "name": "Zondag 2"
+          "name": "Zondag 2",
+          "code": "123357"
         },
         {
-          "name": "Zondag 45+1"
+          "name": "Zondag 45+1",
+          "code": "234500"
         },
         {
-          "name": "Zondag 45+2"
+          "name": "Zondag 45+2",
+          "code": "329300"
         },
         {
-          "name": "Zondag 45+3"
+          "name": "Zondag 45+3",
+          "code": "355111"
         }
       ]
     },
@@ -30,7 +37,8 @@
       "title": "Vrouwen",
       "items": [
         {
-          "name": "Zondag VR1"
+          "name": "Zondag VR1",
+          "code": "123347"
         }
       ]
     },
@@ -38,13 +46,16 @@
       "title": "Junioren",
       "items": [
         {
-          "name": "O14-1"
+          "name": "O14-1",
+          "code": "317182"
         },
         {
-          "name": "O15-1"
+          "name": "O15-1",
+          "code": "281881"
         },
         {
-          "name": "O16-1"
+          "name": "O16-1",
+          "code": "306240"
         }
       ]
     },
@@ -52,52 +63,68 @@
       "title": "Pupillen",
       "items": [
         {
-          "name": "O8-1"
+          "name": "O8-1",
+          "code": "306657"
         },
         {
-          "name": "O8-2"
+          "name": "O8-2",
+          "code": "306673"
         },
         {
-          "name": "O8-3JM"
+          "name": "O8-3JM",
+          "code": "396866"
         },
         {
-          "name": "O9-1"
+          "name": "O9-1",
+          "code": "281893"
         },
         {
-          "name": "O9-2"
+          "name": "O9-2",
+          "code": "281894"
         },
         {
-          "name": "O9-3"
+          "name": "O9-3",
+          "code": "281895"
         },
         {
-          "name": "O10-1"
+          "name": "O10-1",
+          "code": "306624"
         },
         {
-          "name": "O10-2"
+          "name": "O10-2",
+          "code": "306625"
         },
         {
-          "name": "O10-3"
+          "name": "O10-3",
+          "code": "335367"
         },
         {
-          "name": "O11-1"
+          "name": "O11-1",
+          "code": "281887"
         },
         {
-          "name": "O11-2"
+          "name": "O11-2",
+          "code": "281888"
         },
         {
-          "name": "O11-3"
+          "name": "O11-3",
+          "code": "281889"
         },
         {
-          "name": "O11-4"
+          "name": "O11-4",
+          "code": "281890"
         },
         {
-          "name": "O13-1"
+          "name": "O13-1",
+          "code": "281883"
         },
         {
-          "name": "O13-2"
+          "name": "O13-2",
+          "code": "281884"
         },
         {
-          "name": "O13-3"
+          "name": "O13-3",
+          "code": "281885"
         }
       ]
     }
